@@ -51,4 +51,11 @@ public class ClienteServiceImpl implements ClienteService {
 		return novoCliente;
 	}
 
+	@Override
+	public Cliente atualizarCliente(Cliente cliente, Long id) {
+		cliente.setId(id);
+		Cliente clienteAtualizado = repository.save(cliente);
+		return clienteAtualizado;
+	}
+
 }

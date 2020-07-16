@@ -11,11 +11,13 @@ public interface ClienteService {
 	
 	Cliente buscarPorId(Long id);
 	
-	void deletar(Long id);
+    void  deletar(Long id);
 	
 	Cliente editar(Long id);
 	
 	Cliente salvarCliente(Cliente cliente);
 	
+	
+	Cliente atualizarCliente(Cliente cliente, Long id);
 	
 }
