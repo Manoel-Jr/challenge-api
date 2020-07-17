@@ -59,8 +59,10 @@ public class ClienteController {
 				
 	}
 	
+	@ApiOperation(value = "Buscar Cliente por id")
+	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> buscarClientePorId(@PathVariable Long id) {
 		Cliente cl = servico.buscarPorId(id);
-		return ResponseEntity.ok(cl);
+		return ResponseEntity.ok().body(cl);
 	}
 }
