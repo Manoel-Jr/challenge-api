@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,10 +37,11 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	
+	@NotNull
+	@Size(min = 5, max = 100)
 	private String nome;
 	
-	@Column(length = 11)
+	@Column(unique = true, length = 14)
 	private String cpf;
 	
 	@Column(length = 7)
@@ -51,30 +53,25 @@ public class Cliente implements Serializable{
 	private LocalDate dataNascimento;
 	
 	@Email
-	
 	private String email;
 	
 	@Column(length = 11)
 	private String telefone;
 	
-	@Column(length = 8)
+	@Column(length = 9)
 	private String cep;
-	
 	
 	private String endereco;
 	
-	
+	@Column(length = 3)
 	private Integer numero;
-	
-	
+
 	private String bairro;
-	
 	
 	private String cidade;
 	
-	
+	@Column(length = 2)
 	private String uf;
-	
 	
 	private String pais;
 	

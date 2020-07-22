@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.challenge.api.exception.ClienteNotExistException;
@@ -19,7 +20,7 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Cliente buscarPorId(Long id) {
 		Optional<Cliente> cli = repository.findById(id);
-		if(cli == null) {
+		if(cli == null  || !cli.isPresent()) {
 			throw new ClienteNotExistException("Cliente não Encontrado!");
 		}
 		return cli.get();
@@ -27,21 +28,19 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void deletar(Long id) {
+	
 		if(id == null) {
-			throw new  ClienteNotExistException("Não foi possivel Excluir Cliente com Id: " + id);
+			throw new  EmptyResultDataAccessException(1);
 		}
 		repository.deleteById(id);
 	}
 
 	@Override
-	public Cliente editar(Long id) {
-		Cliente clienteSalvo = buscarPorId(id);
-		return repository.save(clienteSalvo);
-	}
-
-	@Override
 	public List<Cliente> listarTodosClientes() {
 		List<Cliente> clientes = this.repository.findAll();
+		if(clientes.isEmpty()) {
+			throw new ClienteNotExistException("Não existe nenhum cliente cadastrado.");
+		}
 		return clientes;
 	}
 
